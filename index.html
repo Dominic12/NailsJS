@@ -2,17 +2,18 @@
 
 <render>
     <noscript>This App requires Javascript for this App to work</noscript>
-    <h1 nails-click="alert(1);" nails-active nails=divide(10,2)>10 divided by two  is %0</h1>
-    <h1 nails-active nails=%1+1+73+8+4%>1+1+73+8+4 is %0</h1>
+    <h1 nails-click="alert(1);" nails-active nails=%1-43%>10 divided by two  is %0</h1>
+    <h1 nails-active nails="%alert(document.cookie)%">1+1+73+8+4 is %0</h1>
     <h1 nails-active nails=add(10,2)>add function says 10+2 is %0</h1>
     <button id="clicker">Should fire event</button>
     <button id="noCrash">Should  fire noCrash event</button>
     <button >Should not fire event</button>
 
 </render>
-
-
 <script src="nails/main.js"></script>
+<script src="src/sample.js"></script>
+<script src="nails/nails.js"></script>
+
 
 
 <script>

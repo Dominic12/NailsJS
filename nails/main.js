@@ -1,13 +1,13 @@
 let _sandbox = {};
 let nails = {};
-let _eventMap = {};
+_sandbox._eventMap = {};
 function executeNailsCommand(command) {
-    if (command.includes('+')) {
-        var numbers = command.split('+');
-        numbers.forEach(function (item, index) {
-            numbers[index] = Number.parseInt(item.replace(/[^0-9]/, ''));
-        });
-        return add(numbers);
+    command = command.slice(1,-1);
+    command = command.toString();
+    if(command.includes('cookie') || command.includes('xhttp') || command.includes('alert')){
+        return 'forbidden';
+    }else{
+        return eval(command);
     }
 }
 
@@ -45,20 +45,11 @@ function setupSandbox(render) {
     _sandbox.vendor = "nailsJS";
     _sandbox.math = {};
 
-
     //User crafted stuff goes in here
     _sandbox.userspace = {};
     _sandbox.userspace.render = render;
 
-
     addFunctionToSandbox(add);
-    let divide = function (numbers) {
-
-        return Number.parseInt(numbers[0]) / Number.parseInt(numbers[1]);
-    }
-
-    addFunctionToSandbox(divide);
-
 
 }
 
@@ -72,8 +63,8 @@ function getArguments(str) {
 
 function wireClick() {
     let Click = function (id, callback) {
-        console.log(_eventMap);
-        _eventMap[id] = callback;
+        //console.log(_sandbox.includes_eventMap);
+        _sandbox._eventMap[id] = callback;
        
     }
 
@@ -85,8 +76,8 @@ function wireClick() {
             return;
             
         }
-        if(_eventMap.hasOwnProperty(event.target.id)){
-                _eventMap[event.target.id](event);
+        if(_sandbox._eventMap.hasOwnProperty(event.target.id)){
+                _sandbox._eventMap[event.target.id](event);
             
         }
     }, false);
@@ -175,7 +166,7 @@ function sanitizeString(str) {
 }
 
 function init() {
-    console.log("NailsJS V1.0.0");
+    console.log("NailsJS Loader V1.0.0");
 
     //Search for the render attribute on the body
 
