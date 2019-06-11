@@ -1,6 +1,6 @@
 let _sandbox = {};
-
-
+let nails = {};
+let _eventMap = {};
 function executeNailsCommand(command) {
     if (command.includes('+')) {
         var numbers = command.split('+');
@@ -52,8 +52,8 @@ function setupSandbox(render) {
 
 
     addFunctionToSandbox(add);
-    let divide = function(numbers){
-    
+    let divide = function (numbers) {
+
         return Number.parseInt(numbers[0]) / Number.parseInt(numbers[1]);
     }
 
@@ -66,6 +66,33 @@ function getArguments(str) {
     var pattern = /\(([^}]+)\)/;
     return str.match(pattern)[0];
 
+}
+
+
+
+function wireClick() {
+    let Click = function (id, callback) {
+        console.log(_eventMap);
+        _eventMap[id] = callback;
+       
+    }
+
+    document.addEventListener('click', function (event) {
+        // console.log('Click called by sender: ' + event.target.id);
+        event.preventDefault();
+        if(event.target.id === null){
+            //console.log('Body detected bail..');
+            return;
+            
+        }
+        if(_eventMap.hasOwnProperty(event.target.id)){
+                _eventMap[event.target.id](event);
+            
+        }
+    }, false);
+
+
+    nails.Click = Click;
 }
 
 function startNails() {
@@ -90,6 +117,7 @@ function startNails() {
             // console.log('Couldnt find attribute')
         }
     });
+    wireClick();
 
 
     activeElements.forEach(function (item, index) {
@@ -136,14 +164,14 @@ function startNails() {
 }
 
 
-function sanitizeString(str){
-    if(typeof str === 'string'){
-        str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+function sanitizeString(str) {
+    if (typeof str === 'string') {
+        str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim, "");
         return str.trim();
-    }else{
+    } else {
         return str;
     }
-    
+
 }
 
 function init() {

@@ -5,9 +5,25 @@
     <h1 nails-click="alert(1);" nails-active nails=divide(10,2)>10 divided by two  is %0</h1>
     <h1 nails-active nails=%1+1+73+8+4%>1+1+73+8+4 is %0</h1>
     <h1 nails-active nails=add(10,2)>add function says 10+2 is %0</h1>
+    <button id="clicker">Should fire event</button>
+    <button id="noCrash">Should  fire noCrash event</button>
+    <button >Should not fire event</button>
 
 </render>
 
 
 <script src="nails/main.js"></script>
+
+
+<script>
+nails.Click('clicker', function(){
+    console.log("Click fire clicker");
+});
+nails.Click('noCrash', function(){
+    console.log("'`Click fire noCrash`'");
+});
+nails.Click("", function(){
+    console.log("handler")
+});
+</script>
 
